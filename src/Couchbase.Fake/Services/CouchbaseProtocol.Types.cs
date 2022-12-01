@@ -32,6 +32,7 @@ partial class CouchbaseProtocol
         SelectBucket = 0x89,
         GetClusterConfig = 0xb5,
         GetCollectionManifest = 0xba,
+        GetCollectionId = 0xbb,
         GetErrorMap = 0xfe,
     }
 

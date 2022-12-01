@@ -6,10 +6,10 @@ partial class CouchbaseProtocol
 {
     private static readonly ClusterConfig s_clusterConfig = new()
     {
-        Rev = 42, RevEpoch = 1,
+        Rev = 43, RevEpoch = 1,
         NodesExt = new[]
         {
-            new NodesExt { ThisNode = true, Services = new() { ["kv"] = 11210, ["mgmt"] = 8091 } },
+            new NodesExt { ThisNode = true, Services = new() { ["kv"] = 11210, ["mgmt"] = 8091, ["n1ql"] = 8091 } },
         },
     };
 

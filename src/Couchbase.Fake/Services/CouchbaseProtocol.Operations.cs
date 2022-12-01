@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using Couchbase.Fake.Interfaces;
+using Couchbase.Fake.Types;
 
 namespace Couchbase.Fake.Services
 {
@@ -99,6 +100,16 @@ namespace Couchbase.Fake.Services
         [Handler(Opcode.GetCollectionManifest)]
         private Task HandleGetCollectionManifest()
             => ReplyAsync(Status.NoError, value: Json(GetCollectionManifest()));
+
+        [Handler(Opcode.GetCollectionId)]
+        private Task HandleGetCollectionId()
+        {
+            Span<CollectionReference> extra = stackalloc CollectionReference[1];
+            var collection = Utf8(Value);
+            extra[0].CollectionId = collection.GetHashCode();
+            _logger.LogInformation("Get CID: {Collection} => {CID}", collection, (uint)extra[0].CollectionId);
+            return ReplyAsync(Status.NoError, extras: Serialize(MemoryMarshal.AsBytes(extra)));
+        }
 
         [Handler(Opcode.Get)]
         [Handler(Opcode.GetQ)]
